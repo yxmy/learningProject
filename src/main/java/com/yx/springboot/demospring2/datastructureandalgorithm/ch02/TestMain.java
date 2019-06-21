@@ -9,7 +9,7 @@ public class TestMain {
         System.out.println();
 //        BubbleSort.sort(arr);
 //        SelectionSort.sort(arr);
-        InsertSort.sort(arr);
+        QuickSort.sort(arr, 0, arr.length - 1);
         for(int data: arr){
             System.out.print(data);
         }
