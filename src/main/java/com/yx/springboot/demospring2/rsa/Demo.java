@@ -15,6 +15,7 @@ import java.security.cert.Certificate;
 import java.util.Date;
 import java.util.Locale;
 
+import net.logstash.logback.encoder.org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -56,18 +57,23 @@ public class Demo {
 
     public static void main(final String[] argv)
             throws UnsupportedEncodingException, SignatureException, InvalidKeyException, NoSuchAlgorithmException {
-        final String clientNo = "jhyh";
-        final String authKey = "JHYH@2019";
+        final String clientNo = "huaxia";
+        final String authKey = "HUAXIA@2017";
+        final String businessDate = "2019-08-30";
+        final String businessMonth = "2019-08";
+        final String filmCode = "001c04352019";
 
-        final KeyPair keyPair = Demo.loadKeyPair("/home/pc-yx/rsa", clientNo, "12345678", "12345678");
+        final KeyPair keyPair = Demo.loadKeyPair("d:/tmp", clientNo, "12345678", "12345678");
 
-        final Date timestamp = new Date(1495378612913L);
+        final Date timestamp = new Date();
         final String nonce = String.valueOf(RandomUtils.nextLong());
 
         StringBuffer sb = new StringBuffer();
         sb.append(clientNo).append("#");
         sb.append(authKey).append("#");
-        sb.append(formatOfBusinessTime(timestamp)).append("#");
+//        sb.append(formatOfBusinessTime(timestamp)).append("#");
+        sb.append(businessDate).append("#");
+        sb.append(filmCode).append("#");
         sb.append(nonce);
         final String signatureStr = sb.toString();
 
@@ -84,15 +90,38 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://59.252.101.3:10049/data/qrcode/query/");
+        sb.append("http://192.168.20.13:58501/data/boxoffice/cinema/films/");
         sb.append(clientNo).append("/");
-        sb.append(formatOfBusinessTime(timestamp)).append("/");
         sb.append(nonce).append("?");
+        sb.append("businessDate=").append(businessDate).append("&");
+        sb.append("filmCode=").append(filmCode).append("&");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
-
         System.out.println("QueryUrl: " + sb.toString());
         System.out.println();
 
+
+
+        final boolean verify = verify(signatureStr, signatureResult, keyPair.getPublic());
+        System.out.println(verify);
+
+    }
+
+    public static boolean verify(final String content, final String sign, final PublicKey pubKey) {
+        try {
+            final byte[] md5 = DigestUtils.md5(content);
+
+            final java.security.Signature signature = java.security.Signature
+                    .getInstance("SHA1WithRSA");
+
+            signature.initVerify(pubKey);
+            signature.update(md5);
+            final boolean bverify = signature.verify(Base64.decodeBase64(sign));
+            return bverify;
+        } catch (final Exception e) {
+            log.error("校验签名失败:{}", ExceptionUtils.getFullStackTrace(e));
+        }
+
+        return false;
     }
 
 }
