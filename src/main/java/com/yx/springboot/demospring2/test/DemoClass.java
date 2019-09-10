@@ -1,5 +1,9 @@
 package com.yx.springboot.demospring2.test;
 
+import com.yx.springboot.demospring2.model.User;
+import com.yx.springboot.demospring2.model.UserDetail;
+import org.junit.Test;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,4 +69,19 @@ public class DemoClass {
             this.name = name;
         }
     }
+
+    public UserDetail get(){
+        com.yx.springboot.demospring2.model.User user = new com.yx.springboot.demospring2.model.User();
+        user.setName("aaa");
+        user.setAge(10);
+        user.setAddress("北京市");
+        return user;
+    }
+
+    @Test
+    public void test(){
+        UserDetail userDetail = get();
+        System.out.println(userDetail);
+    }
+
 }

@@ -61,7 +61,7 @@ public class Demo {
         final String authKey = "HUAXIA@2017";
         final String businessDate = "2019-08-30";
         final String businessMonth = "2019-08";
-        final String filmCode = "001c04352019";
+        final String filmCode = "091201342019";
 
         final KeyPair keyPair = Demo.loadKeyPair("d:/tmp", clientNo, "12345678", "12345678");
 
@@ -72,7 +72,7 @@ public class Demo {
         sb.append(clientNo).append("#");
         sb.append(authKey).append("#");
 //        sb.append(formatOfBusinessTime(timestamp)).append("#");
-        sb.append(businessDate).append("#");
+        sb.append(businessMonth).append("#");
         sb.append(filmCode).append("#");
         sb.append(nonce);
         final String signatureStr = sb.toString();
@@ -90,10 +90,10 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://192.168.20.13:58501/data/boxoffice/cinema/films/");
+        sb.append("http://192.168.20.13:58501/data/boxoffice/cinema/films/screening/");
         sb.append(clientNo).append("/");
         sb.append(nonce).append("?");
-        sb.append("businessDate=").append(businessDate).append("&");
+        sb.append("businessMonth=").append(businessMonth).append("&");
         sb.append("filmCode=").append(filmCode).append("&");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
         System.out.println("QueryUrl: " + sb.toString());
