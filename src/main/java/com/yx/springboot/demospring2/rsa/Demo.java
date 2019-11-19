@@ -57,9 +57,9 @@ public class Demo {
 
     public static void main(final String[] argv)
             throws UnsupportedEncodingException, SignatureException, InvalidKeyException, NoSuchAlgorithmException {
-        final String clientNo = "huaxia";
-        final String authKey = "HUAXIA@2017";
-        final String businessDate = "2019-08-30";
+        final String clientNo = "ali";
+        final String authKey = "ALI@2017";
+        final String businessDate = "2019-09-16";
         final String businessMonth = "2019-08";
         final String filmCode = "091201342019";
 
@@ -71,9 +71,9 @@ public class Demo {
         StringBuffer sb = new StringBuffer();
         sb.append(clientNo).append("#");
         sb.append(authKey).append("#");
-//        sb.append(formatOfBusinessTime(timestamp)).append("#");
-        sb.append(businessMonth).append("#");
-        sb.append(filmCode).append("#");
+        sb.append(formatOfBusinessTime(timestamp)).append("#");
+//        sb.append(businessDate).append("#");
+//        sb.append(filmCode).append("#");
         sb.append(nonce);
         final String signatureStr = sb.toString();
 
@@ -90,11 +90,13 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://192.168.20.13:58501/data/boxoffice/cinema/films/screening/");
+        sb.append("http://192.168.20.13:58501/data/baseinfo/cinemaandchain/query/"); //app17 使用curl执行
         sb.append(clientNo).append("/");
+        sb.append(formatOfBusinessTime(timestamp)).append("/");
         sb.append(nonce).append("?");
-        sb.append("businessMonth=").append(businessMonth).append("&");
-        sb.append("filmCode=").append(filmCode).append("&");
+//        sb.append("businessDate=").append(businessDate).append("&");
+//        sb.append("filmCode=").append(filmCode).append("&");
+        sb.append("page=0&size=50&");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
         System.out.println("QueryUrl: " + sb.toString());
         System.out.println();
