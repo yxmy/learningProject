@@ -3,6 +3,8 @@ package com.yx.springboot.demospring2.modelmapper.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 public class SourceModel {
@@ -10,4 +12,8 @@ public class SourceModel {
     Address address;
     Person person;
     String mark;
+
+    public Optional<Customer> getCustomer1(){
+        return Optional.ofNullable(customer);
+    }
 }

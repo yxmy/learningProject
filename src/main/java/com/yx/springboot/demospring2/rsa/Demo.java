@@ -90,13 +90,14 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://192.168.20.13:58501/data/baseinfo/cinemaandchain/query/"); //app17 使用curl执行
+        sb.append("http://111.205.151.12:15041/dss/data/baseinfo/user/query/"); //app17 使用curl执行
         sb.append(clientNo).append("/");
         sb.append(formatOfBusinessTime(timestamp)).append("/");
         sb.append(nonce).append("?");
 //        sb.append("businessDate=").append(businessDate).append("&");
 //        sb.append("filmCode=").append(filmCode).append("&");
         sb.append("page=0&size=50&");
+        sb.append("lastModifiedDate=2019-11-25T00:00:00");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
         System.out.println("QueryUrl: " + sb.toString());
         System.out.println();

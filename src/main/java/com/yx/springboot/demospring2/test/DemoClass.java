@@ -2,13 +2,13 @@ package com.yx.springboot.demospring2.test;
 
 import com.yx.springboot.demospring2.model.User;
 import com.yx.springboot.demospring2.model.UserDetail;
+import com.yx.springboot.demospring2.modelmapper.model.Customer;
+import com.yx.springboot.demospring2.modelmapper.model.Name;
+import com.yx.springboot.demospring2.modelmapper.model.SourceModel;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DemoClass {
 
@@ -49,28 +49,29 @@ public class DemoClass {
 
     }
 
-    public static int getFileCount(File file){
+    public static int getFileCount(File file) {
         int count = 0;
-        for(File file1 : file.listFiles()){
-            if(file1.isDirectory()){
+        for (File file1 : file.listFiles()) {
+            if (file1.isDirectory()) {
                 count += getFileCount(file1);
-            }else{
+            } else {
                 count++;
             }
         }
         return count;
     }
 
-    static class User{
+    static class User {
         String name;
         int age;
-        public User(String name, int age){
+
+        public User(String name, int age) {
             this.age = age;
             this.name = name;
         }
     }
 
-    public UserDetail get(){
+    public UserDetail get() {
         com.yx.springboot.demospring2.model.User user = new com.yx.springboot.demospring2.model.User();
         user.setName("aaa");
         user.setAge(10);
@@ -79,9 +80,34 @@ public class DemoClass {
     }
 
     @Test
-    public void test(){
+    public void test() {
         UserDetail userDetail = get();
         System.out.println(userDetail);
+    }
+
+    @Test
+    public void nullable() {
+        SourceModel model = new SourceModel();
+        String firstName = Optional.ofNullable(model).map(SourceModel::getCustomer).map(Customer::getName).map(Name::getFirstName).orElse("");
+        System.out.println(firstName);
+    }
+
+    @Test
+    public void test2(){
+        List<String> list = new ArrayList<>();
+        list.add("poi");
+        list.add("dsf");
+        list.add("abc");
+        list.add("oif");
+
+        list.forEach(s -> {
+            System.out.print(s + ",");
+        });
+        list.sort(null);
+        System.out.println("----------------------------------");
+        list.forEach(s -> {
+            System.out.print(s + ",");
+        });
     }
 
 }
