@@ -1,9 +1,6 @@
 package com.yx.springboot.demospring.rsa;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyStore;
@@ -21,6 +18,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.util.UriUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,14 +55,15 @@ public class Demo {
     }
 
     public static void main(final String[] argv)
-            throws UnsupportedEncodingException, SignatureException, InvalidKeyException, NoSuchAlgorithmException {
+            throws UnsupportedEncodingException, SignatureException, InvalidKeyException, NoSuchAlgorithmException, FileNotFoundException {
         final String clientNo = "ali";
         final String authKey = "ALI@2017";
         final String businessDate = "2019-09-16";
         final String businessMonth = "2019-08";
         final String filmCode = "091201342019";
 
-        final KeyPair keyPair = Demo.loadKeyPair("d:/tmp", clientNo, "12345678", "12345678");
+        File file = ResourceUtils.getFile("classpath:rsakey");
+        final KeyPair keyPair = Demo.loadKeyPair(file.getAbsolutePath(), clientNo, "12345678", "12345678");
 
         final Date timestamp = new Date();
         final String nonce = String.valueOf(RandomUtils.nextLong());
@@ -90,7 +90,7 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://111.205.151.12:15041/dss/data/baseinfo/user/query/"); //app17 使用curl执行
+        sb.append("http://59.252.101.3:10040/dss/data/baseinfo/user/query/");
         sb.append(clientNo).append("/");
         sb.append(formatOfBusinessTime(timestamp)).append("/");
         sb.append(nonce).append("?");
