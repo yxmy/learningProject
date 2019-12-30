@@ -97,7 +97,7 @@ public class Demo {
 //        sb.append("businessDate=").append(businessDate).append("&");
 //        sb.append("filmCode=").append(filmCode).append("&");
         sb.append("page=0&size=50&");
-        sb.append("lastModifiedDate=2019-11-25T00:00:00");
+        sb.append("lastModifiedDate=2019-11-25T00:00:00&");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
         System.out.println("QueryUrl: " + sb.toString());
         System.out.println();
