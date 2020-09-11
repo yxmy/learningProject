@@ -6,7 +6,10 @@ import com.yx.springboot.demospring.modelmapper.model.Name;
 import com.yx.springboot.demospring.modelmapper.model.SourceModel;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class DemoClass {
@@ -107,6 +110,35 @@ public class DemoClass {
         list.forEach(s -> {
             System.out.print(s + ",");
         });
+    }
+
+    @Test
+    public void test3(){
+        String name = "1231,444,88,9,";
+        String substring = name.substring(0, name.lastIndexOf(","));
+        System.out.println(substring);
+    }
+
+    @Test
+    public void test4(){
+        final String filePath = "C:\\aaa";
+        File targetZip = new File(filePath);
+        final StringBuilder command = new StringBuilder();
+        command.append("7za a -tzip ")
+                .append(targetZip.getAbsolutePath())
+                .append(" ");
+        try {
+            final Process ps = Runtime.getRuntime().exec(command.toString());
+            final BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream()));
+            final StringBuffer sb = new StringBuffer();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            final String result = sb.toString();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

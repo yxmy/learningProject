@@ -9,6 +9,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
 import java.security.cert.Certificate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -56,8 +57,8 @@ public class Demo {
 
     public static void main(final String[] argv)
             throws UnsupportedEncodingException, SignatureException, InvalidKeyException, NoSuchAlgorithmException, FileNotFoundException {
-        final String clientNo = "ali";
-        final String authKey = "ALI@2017";
+        final String clientNo = "taopiaopiaoWechat";
+        final String authKey = "TPP@2019";
         final String businessDate = "2019-09-16";
         final String businessMonth = "2019-08";
         final String filmCode = "091201342019";
@@ -65,7 +66,11 @@ public class Demo {
         File file = ResourceUtils.getFile("classpath:rsakey");
         final KeyPair keyPair = Demo.loadKeyPair(file.getAbsolutePath(), clientNo, "12345678", "12345678");
 
-        final Date timestamp = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        final Date timestamp = calendar.getTime();
         final String nonce = String.valueOf(RandomUtils.nextLong());
 
         StringBuffer sb = new StringBuffer();
@@ -90,14 +95,14 @@ public class Demo {
         System.out.println();
 
         sb = new StringBuffer();
-        sb.append("http://59.252.101.3:10040/dss/data/baseinfo/user/query/");
+        sb.append("http://59.252.101.3:10040/dss/data/service/query/");
         sb.append(clientNo).append("/");
         sb.append(formatOfBusinessTime(timestamp)).append("/");
         sb.append(nonce).append("?");
 //        sb.append("businessDate=").append(businessDate).append("&");
 //        sb.append("filmCode=").append(filmCode).append("&");
-        sb.append("page=0&size=50&");
-        sb.append("lastModifiedDate=2019-11-25T00:00:00&");
+//        sb.append("page=0&size=50&");
+//        sb.append("lastModifiedDate=2019-11-25T00:00:00&");
         sb.append("signature=").append(UriUtils.encode(signatureResult, "UTF-8"));
         System.out.println("QueryUrl: " + sb.toString());
         System.out.println();

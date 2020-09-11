@@ -19,41 +19,44 @@ public class RSAUtils {
 
     public static void main(final String[] args) throws Exception {
         try {
-            //            //            final String s =
-            //            //                    "K8yMqKKXxCtC8jy/NJ3d3UfabZdmuyqDjzeDgpVO1woNxqe5fGmy8rhppTt/WGxOCzWIxrbHcdBSJub8eE9qXUI8x4n8fStzzfwNa5rOF5sZIVTYx2EbY9IMLif8CiMgTjIhil0H2Kg8weCXArPpHyqmlpjPiLKAVEYvLs8oBqI=";
-            //            //            final String n =
-            //            //                    "93594321E0FB8CA280101846DA88A7C60A6997577EF93A34147994DC71AEF25B9891B5EB10C7BE63DF9AAF21F461BEE2E073B681C175F63709523165F5FBDD3B31159136AD3A84578B9A7B5B855642993F91147C2C16846EEAC1BE22530378CAE1358C4E527D93068EE37BCCFE4252BF283C7665A2BC179C575F5C0664F3F6CD";
-            //            //            final String e = "010001";
-            //            //            final RSAPublicKey publickKey = CerUtils.getRSAPublicKeyFromStr(n, e);
-            //            //            final byte aaaa[] = RSAUtils.decryptBASE64(s);
-            //            //            System.out.println(aaaa.length);
-            //            //            final byte[] decByte = RSAUtils.decrypt(aaaa, publickKey);
-            //            //            System.out.println("公钥解密后：");
-            //            //            final String decStr = new String(decByte);
-            //            //            System.out.println(decStr);
-            //            //            System.out.println(decStr.length());
-            //
-            //            //加密
-            //            final String message = "my name is lily";
-            //            final PrivateKey privateKey =
-            //                    CerUtils.getPvkformPfx("d:/reportcer@1@mainKey@53040011@20160816192503.pfx", "12345678");
-            //            final byte[] key_message = RSAUtils.encrypt(message, privateKey);
-            //            final String base_message = RSAUtils.encryptBASE64(key_message);
-            //            System.out.println(base_message);
-            //            //解密
+            //加密
+//            final String message = "my name is lily";
+//            final PrivateKey privateKey =
+//                    CerUtils.getPvkformPfx("d:/reportcer@1@mainKey@53040011@20160816192503.pfx", "12345678");
+//            final byte[] key_message = RSAUtils.encrypt(message, privateKey);
+//            final String base_message = RSAUtils.encryptBASE64(key_message);
+//            System.out.println(base_message);
+            //解密
             final String s ="33077201mebj1btLfktwAlY5RruFqZeH2+eD7TkjVHKMOn6zGhfoykl9AUnno8POUABop52DUeyMt2Xx0f1b2yiZNzPkRiMHAaumd5oybmT7706z+eNNPNKt0c5M1fRQxf1f75UHLPivPI5cLKBA0scHMLq8W3fVVrSdGhIYsP73oQ2kEwI=";
-            final String base64Datas = s.substring(8, s.length());
+            final String base64Datas = s.substring(8);
             final String n1 ="D58747E5F69C8BEA9AA3430CDB7E39D5B72B90AA8A4F71121159BF8840BDED6900A453B435F4A5E1D392E8DFE893098A2D31097235211BC1F87506721A2263A7DBD27B3F767F56A96E0EA91840A4EAF61066D1FD61A621A2CBD0468B7042D081AEED30A69605046A66DCF831314EB032537F7710AE327E76D08ADEC0239B193F";
             final String n = n1.substring(0, 256);
             final String e = "010001";
-            final RSAPublicKey publickKey = CerUtils.getRSAPublicKeyFromStr(n1, e);
-            final byte aaaa[] = RSAUtils.decryptBASE64(base64Datas);
+            final RSAPublicKey publicKey = CerUtils.getRSAPublicKeyFromStr(n1, e);
+            final byte [] aaaa = RSAUtils.decryptBASE64(base64Datas);
             System.out.println(aaaa.length);
-            final byte[] decByte = RSAUtils.decrypt(aaaa, publickKey);
+            final byte[] decByte = RSAUtils.decrypt(aaaa, publicKey);
             System.out.println("公钥解密后：");
             final String decStr = new String(decByte);
             System.out.println(decStr);
-            System.out.println(decStr.length());
+
+            System.out.println("**********************PFX文件加解密**************************");
+            //解密
+            final String s1 ="33077201bKvf8G51Fa5fqpm6YLAkLIuknHSG3/3oZRk4EqWyQjz+C4sYcXUEH4ZlTFsKvROeFa1hL6ojRXpewfY1Xjl0iDaWnXEicDS/s3acAPacqkzVs3BFqV2yKIRRPp/cIMfOJvXHCGQtNbuPB1oJ7eyaHyhVXeerCJsdoCgBZQyyqak=";
+            final String base64Datas1 = s1.substring(8);
+            PublicKey pukformPfx = CerUtils.getPukformPfx("d:/reportcer@2@1@33077201@20160126093412.pfx", "12345678");
+            final byte [] aaaa1 = RSAUtils.decryptBASE64(base64Datas1);
+            System.out.println(aaaa1.length);
+            final byte[] decByte1 = RSAUtils.decrypt(aaaa1, pukformPfx);
+            System.out.println("公钥解密后：");
+            final String decStr1 = new String(decByte1);
+            System.out.println(decStr1);
+            //加密
+            final PrivateKey privateKey =
+                    CerUtils.getPvkformPfx("d:/reportcer@2@1@33077201@20160126093412.pfx", "12345678");
+            final byte[] keyMessage = RSAUtils.encrypt(decStr1, privateKey);
+            final String baseMessage = RSAUtils.encryptBASE64(keyMessage);
+            System.out.println(baseMessage);
         } catch (final Exception e) {
             e.printStackTrace();
         }
