@@ -26,7 +26,7 @@ public class XmlPerse {
         Map<String, Table> meta = new HashMap<String, Table>();
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir(cfgHome);
-        ds.setIncludes(new String[] { "*.xml"});
+        ds.setIncludes(new String[] { "metadata*.xml"});
         ds.scan();
         String[] files = ds.getIncludedFiles();
 
