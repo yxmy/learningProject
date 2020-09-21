@@ -21,4 +21,12 @@ public class SelectionSort {
         }
     }
 
+    public static void main(String[] args) {
+        int [] arr = {0,2,5,4,3,-1};
+        sort(arr);
+        for (int i : arr) {
+            System.out.print(i + ",");
+        }
+    }
+
 }

@@ -20,8 +20,8 @@ import java.util.Map;
 @Slf4j
 public class PaintWorkFlow {
 
-    public List<WorkflowNode> test() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:xmlfolder/workflow.xml");
+    public List<WorkflowNode> getNodesByFileName(String fileName) throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:xmlfolder/" + fileName);
         List<WorkflowNode> workflowNodes = parseXml(file);
         setIndexForNode(workflowNodes);
         return workflowNodes;
@@ -56,12 +56,12 @@ public class PaintWorkFlow {
                 if (nextNodeList == null) {
                     nextNodeList = new ArrayList<>();
                     //增加此判断是为了解决可能其他line已经设置过该节点宽高问题
-                    if (!fromNode.isIfBeginBranchNode() && !fromNode.isIfEndBranchNode()) {
+                    if (!fromNode.isBeginBranchNode() && !fromNode.isEndBranchNode()) {
                         fromNode.setWidth(NodeContext.NODE_WIDTH);
                         fromNode.setHeight(NodeContext.NODE_HEIGHT);
                     }
                 } else {
-                    fromNode.setIfBeginBranchNode(true);
+                    fromNode.setBeginBranchNode(true);
                     fromNode.setWidth(NodeContext.BRANCH_NODE_WIDTH);
                     fromNode.setHeight(NodeContext.BRANCH_NODE_HEIGHT);
                 }
@@ -72,12 +72,12 @@ public class PaintWorkFlow {
                 if (preNodeList == null) {
                     preNodeList = new ArrayList<>();
                     //增加此判断是为了解决可能其他line已经设置过该节点宽高问题
-                    if (!toNode.isIfBeginBranchNode() && !toNode.isIfEndBranchNode()) {
+                    if (!toNode.isBeginBranchNode() && !toNode.isEndBranchNode()) {
                         toNode.setWidth(NodeContext.NODE_WIDTH);
                         toNode.setHeight(NodeContext.NODE_HEIGHT);
                     }
                 } else {
-                    toNode.setIfEndBranchNode(true);
+                    toNode.setEndBranchNode(true);
                     toNode.setWidth(NodeContext.BRANCH_NODE_WIDTH);
                     toNode.setHeight(NodeContext.BRANCH_NODE_HEIGHT);
                 }
@@ -107,53 +107,56 @@ public class PaintWorkFlow {
                 int yIndex = (NodeContext.CANVAS_HEIGHT / 2) + (node.getHeight() / 2);
                 node.setYIndex(yIndex);
             } else {
-                if (node.isIfBeginBranchNode()) {
+                if (node.isBeginBranchNode()) {
                     WorkflowNode preWorkflowNode = node.getPreNodeList().get(0);
                     node.setXIndex(preWorkflowNode.getXIndex() + preWorkflowNode.getWidth() + NodeContext.LINE_TRANSVERSE);
                     int yIndex = preWorkflowNode.getYIndex() + (preWorkflowNode.getHeight() / 2) - (node.getHeight() / 2);
                     node.setYIndex(yIndex);
                     //设置它的下一级节点坐标
                     List<WorkflowNode> nextNodeList = node.getNextNodeList();
+                    int halfSize = nextNodeList.size() / 2;
                     for (int i = 0; i < nextNodeList.size(); i++) {
-                        //TODO 先做简单实现，就是假设分支上面不再有分支，后续再完善
                         WorkflowNode workflowNode = nextNodeList.get(i);
-                        int halfSize = nextNodeList.size() / 2;
                         //表示偶数个
                         if (nextNodeList.size() % 2 == 0) {
-                            workflowNode.setXIndex(node.getXIndex() + node.getWidth() + NodeContext.LINE_TRANSVERSE);
+                            //判断竖线，用此方式可以动态计算奇数个并行节点上每个节点的Y轴需要增加或者减少的线条长度
+                            int commonVertical = (i - halfSize) * NodeContext.LINE_VERTICAL + NodeContext.LINE_VERTICAL / 2;
+                            workflowNode.setXIndex(node.getXIndex() + node.getWidth() / 2 + NodeContext.LINE_TRANSVERSE);
                             if (i < halfSize) {
-                                workflowNode.setYIndex(node.getYIndex() - NodeContext.LINE_VERTICAL / 2 - workflowNode.getHeight() / 2);
+                                workflowNode.setYIndex(node.getYIndex() - workflowNode.getHeight() / 2 + commonVertical);
                             //节点在下方
                             } else {
-                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() + NodeContext.LINE_VERTICAL / 2 - workflowNode.getHeight() / 2);
+                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() - workflowNode.getHeight() / 2 + commonVertical);
                             }
                         } else {
+                            //判断竖线，用此方式可以动态计算奇数个并行节点上每个节点的Y轴需要增加或者减少的线条长度
+                            int commonVertical = (i - halfSize) * NodeContext.LINE_VERTICAL;
+                            workflowNode.setXIndex(node.getXIndex() + node.getWidth() / 2 + NodeContext.LINE_TRANSVERSE);
                             //节点在上方
                             if (i < halfSize) {
-                                workflowNode.setXIndex(node.getXIndex() + node.getWidth() / 2 + NodeContext.LINE_TRANSVERSE);
-                                workflowNode.setYIndex(node.getYIndex() - NodeContext.LINE_VERTICAL / 2 - workflowNode.getHeight() / 2);
+                                workflowNode.setYIndex(node.getYIndex() - workflowNode.getHeight() / 2 + commonVertical);
                             //节点在中间
                             } else if (i == halfSize) {
-                                workflowNode.setXIndex(node.getXIndex() + node.getWidth() / 2 + NodeContext.LINE_TRANSVERSE);
-                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() / 2 - workflowNode.getHeight() / 2);
+                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() / 2 - workflowNode.getHeight() / 2 + commonVertical);
                             //节点在下方
                             } else {
-                                workflowNode.setXIndex(node.getXIndex() + node.getWidth() + NodeContext.LINE_TRANSVERSE);
-                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() + NodeContext.LINE_VERTICAL / 2 - workflowNode.getHeight() / 2);
+                                workflowNode.setYIndex(node.getYIndex() + node.getHeight() - workflowNode.getHeight() / 2 + commonVertical);
                             }
                         }
                     }
-                } else if (node.isIfEndBranchNode()) {
+                } else if (node.isEndBranchNode()) {
                     List<WorkflowNode> preNodeList = node.getPreNodeList();
-                    WorkflowNode firstNode = preNodeList.get(0);
-                    WorkflowNode lastNode = preNodeList.get(preNodeList.size() - 1);
+                    ArrayList<WorkflowNode> minAndMaxYNodes = getMinAndMaxYNodes(preNodeList);
+                    WorkflowNode firstNode = minAndMaxYNodes.get(0);
+                    WorkflowNode lastNode = minAndMaxYNodes.get(minAndMaxYNodes.size() - 1);
                     int halfIndex = ((firstNode.getYIndex() + firstNode.getHeight() / 2) + (lastNode.getYIndex() + lastNode.getHeight() / 2)) / 2;
                     node.setYIndex(halfIndex - node.getHeight() / 2);
-                    node.setXIndex(firstNode.getXIndex() + firstNode.getWidth() + NodeContext.LINE_TRANSVERSE - node.getWidth() / 2);
+                    WorkflowNode maxXIndexNode = getMaxXIndexNode(preNodeList);
+                    node.setXIndex(maxXIndexNode.getXIndex() + maxXIndexNode.getWidth() + NodeContext.LINE_TRANSVERSE - node.getWidth() / 2);
                 } else {
                     WorkflowNode preWorkflowNode = node.getPreNodeList().get(0);
                     node.setXIndex(preWorkflowNode.getXIndex() + preWorkflowNode.getWidth() + NodeContext.LINE_TRANSVERSE);
-                    if (preWorkflowNode.isIfEndBranchNode()) {
+                    if (preWorkflowNode.isEndBranchNode()) {
                         node.setYIndex(preWorkflowNode.getYIndex() + preWorkflowNode.getHeight() / 2 - node.getHeight() / 2);
                     } else {
                         node.setYIndex(preWorkflowNode.getYIndex());
@@ -161,6 +164,53 @@ public class PaintWorkFlow {
                 }
             }
         }
+    }
+
+    /**
+     * 获取集合中X坐标最大的节点
+     * @param nodes
+     * @return
+     */
+    private WorkflowNode getMaxXIndexNode (List<WorkflowNode> nodes) {
+        int maxIndex = 0;
+        WorkflowNode maxXIndexNode = null;
+        for (WorkflowNode node : nodes) {
+            if (node.getXIndex() > maxIndex) {
+                maxIndex = node.getXIndex();
+                maxXIndexNode = node;
+            }
+        }
+        return maxXIndexNode;
+    }
+
+    /**
+     * 获取集合中Y坐标最大和最小的节点
+     * @param nodes
+     * @return
+     */
+    private ArrayList<WorkflowNode> getMinAndMaxYNodes (List<WorkflowNode> nodes) {
+        WorkflowNode[] arr = new WorkflowNode[nodes.size()];
+        for (int i = 0; i < nodes.size(); i++) {
+            arr[i] = nodes.get(i);
+        }
+        //选择排序
+        int k;
+        WorkflowNode tmp;
+        for(int i=0;i<arr.length-1;i++){
+            k = i;
+            for(int j = i; j <arr.length; j++){
+                if(arr[j].getYIndex() < arr[k].getYIndex()){
+                    k = j;
+                }
+            }
+            tmp = arr[i];
+            arr[i] = arr[k];
+            arr[k] = tmp;
+        }
+        return new ArrayList<WorkflowNode>(2){{
+            add(arr[0]);
+            add(arr[arr.length - 1]);
+        }};
     }
 
 }

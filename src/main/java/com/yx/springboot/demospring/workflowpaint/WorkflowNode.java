@@ -45,12 +45,12 @@ public class WorkflowNode {
     /**
      * 是否是开始分支节点，就是并行节点的出发
      */
-    private boolean ifBeginBranchNode = false;
+    private boolean isBeginBranchNode = false;
 
     /**
      * 是否是结束分支节点，就是并行节点的结束
      */
-    private boolean ifEndBranchNode = false;
+    private boolean isEndBranchNode = false;
 
     /**
      * 上一个节点

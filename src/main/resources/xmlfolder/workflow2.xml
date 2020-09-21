@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process>
+    <node id="1" name="发起者"/>
+    <node id="2" name="s"/>
+    <node id="3" name="空节点"/>
+    <node id="4" name="部门主管"/>
+    <node id="5" name="空节点1"/>
+    <node id="6" name="j"/>
+    <node id="7" name="空分支点1"/>
+    <node id="8" name="空分支点2"/>
+    <node id="9" name="k"/>
+    <node id="10" name="m"/>
+    <node id="11" name="上级部门主管"/>
+    <node id="12" name="会计"/>
+    <node id="13" name="出纳"/>
+    <node id="14" name="结束"/>
+    <line from="1" to="2"/>
+    <line from="2" to="3"/>
+    <line from="2" to="4"/>
+    <line from="3" to="5"/>
+    <line from="4" to="10"/>
+    <line from="5" to="6"/>
+    <line from="6" to="7"/>
+    <line from="6" to="8"/>
+    <line from="7" to="9"/>
+    <line from="8" to="9"/>
+    <line from="9" to="10"/>
+    <line from="10" to="11"/>
+    <line from="11" to="12"/>
+    <line from="12" to="13"/>
+    <line from="13" to="14"/>
+</process>

@@ -14,12 +14,12 @@ public class NodeContext {
     /**
      * 画布高度
      */
-    public static final int CANVAS_HEIGHT = 500;
+    public static final int CANVAS_HEIGHT = 1000;
 
     /**
      * 画布宽度
      */
-    public static final int CANVAS_WIDTH = 1000;
+    public static final int CANVAS_WIDTH = 1500;
 
     /**
      * 横向连接线长度

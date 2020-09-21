@@ -1,6 +1,6 @@
 package com.yx.springboot.demospring.pullInfFromSoFang;
 
-import com.mysql.jdbc.StringUtils;
+import com.mysql.cj.util.StringUtils;
 import com.yx.springboot.demospring.model.HouseInfoBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
