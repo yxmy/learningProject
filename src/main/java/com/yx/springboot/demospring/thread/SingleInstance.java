@@ -1,6 +1,6 @@
 package com.yx.springboot.demospring.thread;
 
-import com.yx.springboot.demospring.model.HouseInfoBean;
+import com.yx.springboot.demospring.testlist.model.HouseInfoBean;
 
 public class SingleInstance {
 
