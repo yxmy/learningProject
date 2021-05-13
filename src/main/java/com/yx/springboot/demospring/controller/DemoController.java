@@ -1,5 +1,6 @@
 package com.yx.springboot.demospring.controller;
 
+import com.yx.springboot.demospring.annotation.ProcessLock;
 import com.yx.springboot.demospring.testlist.model.Person;
 import com.yx.springboot.demospring.testlist.service.AbstractBaseService;
 import org.springframework.ui.Model;
@@ -24,7 +25,8 @@ public class DemoController {
     @Resource(name = "serviceB")
     private AbstractBaseService serviceB;
 
-    @RequestMapping("/")
+    @ProcessLock(lockParam = {"processId","workItemId"}, execMode = "改串行执行")
+    @RequestMapping("/index")
     public String index(Model model){
         Person single = new Person("aa", 11);
         List<Person> list = new ArrayList<>();
@@ -33,6 +35,7 @@ public class DemoController {
         list.add(new Person("dd",44));
         model.addAttribute("singlePerson", single);
         model.addAttribute("people", list);
+        System.out.println("方法执行结束***********");
         return "index";
     }
 

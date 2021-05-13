@@ -4,6 +4,7 @@ import com.yx.springboot.demospring.testlist.model.UserDetail;
 import com.yx.springboot.demospring.testlist.modelmapper.model.Customer;
 import com.yx.springboot.demospring.testlist.modelmapper.model.Name;
 import com.yx.springboot.demospring.testlist.modelmapper.model.SourceModel;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -11,45 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DemoClass {
-
-    public static void main(String[] args) {
-//        File file = new File("/home/pc-yx/gitProject");
-//        Map<String, Integer> map = new HashMap<>();
-//        for(File file1 : file.listFiles()){
-//            String businessDateFileName = file1.getName();
-//            if (file1.isDirectory()){
-//                for(File file2 : file1.listFiles()){
-//                    String cinemaCodeFileName = file2.getName();
-//                    if(file2.isDirectory()){
-//                        map.put(businessDateFileName + "," + cinemaCodeFileName, getFileCount(file2));
-//                    }
-//                }
-//            }
-//        }
-//
-//        for(Map.Entry<String, Integer> entry : map.entrySet()){
-//            System.out.println(entry.getKey() + "::::::" + entry.getValue());
-//        }
-        List<User> userList = new ArrayList<>();
-        User user1 = new User("张三", 20);
-        User user2 = new User("李四", 21);
-        User user3 = new User("王五", 22);
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-        Map<Integer, User> map = new HashMap<>();
-        map.put(1, user1);
-        map.put(2, user2);
-        map.put(3, user3);
-        user1.name = "小红";
-        user2.name = "小白";
-        user3.name = "小明";
-        System.out.println(userList.get(1).name);
-        System.out.println(map.get(1).name);
-
-    }
 
     public static int getFileCount(File file) {
         int count = 0;
@@ -70,6 +35,10 @@ public class DemoClass {
         public User(String name, int age) {
             this.age = age;
             this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
         }
     }
 
@@ -95,7 +64,7 @@ public class DemoClass {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         List<String> list = new ArrayList<>();
         list.add("poi");
         list.add("dsf");
@@ -113,14 +82,14 @@ public class DemoClass {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         String name = "1231,444,88,9,";
         String substring = name.substring(0, name.lastIndexOf(","));
         System.out.println(substring);
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         final String filePath = "C:\\aaa";
         File targetZip = new File(filePath);
         final StringBuilder command = new StringBuilder();
@@ -139,6 +108,109 @@ public class DemoClass {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void test5() {
+        List<User> userList = new ArrayList<>();
+        User user = new User("张三", 10);
+        userList.add(user);
+        String collect = userList.stream().map(User::getName).collect(Collectors.joining(","));
+        System.out.println(collect);
+
+        User user1 = new User("李四", 10);
+        userList.add(user1);
+        String collect1 = userList.stream().map(User::getName).collect(Collectors.joining(","));
+        System.out.println(collect1);
+    }
+
+    @Test
+    public void test6() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("、aaa");
+        System.out.println(stringBuilder.delete(0, 1).toString());
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            list.add("a" + i);
+        }
+        List<String> strings;
+        if (list.size() < 10) {
+            strings = list.subList(0, list.size());
+        } else {
+            strings = list.subList(0, 10);
+        }
+        System.out.println(strings);
+    }
+
+    @Test
+    public void test7() {
+        List<String> list = new ArrayList<>();
+        System.out.println(StringUtils.join(list, "、"));
+        list.add("a");
+        System.out.println(StringUtils.join(list, "、"));
+        list.add("b");
+        System.out.println(StringUtils.join(list, "、"));
+    }
+
+    @Test
+    public void test8() {
+        long baseTime = 200L;
+        for (int i = 0; i < 10; i++) {
+            double random = Math.random();
+            long addRandomTime = Math.round(random * 800);
+            System.out.print("第" + (i + 1) + "次随机数为：" + random + "；");
+            System.out.println("随机时间为：" + (baseTime + addRandomTime) + "。");
+        }
+    }
+
+    @Test
+    public void test9() {
+        String a = "";
+        String b = "sss";
+        System.out.println(b.contains(a));
+    }
+
+    public static String convertMinuteTime(Integer totalMinute) {
+        StringBuilder returnResult = new StringBuilder();
+        int day;
+        int hour;
+        int minute = 0;
+        day = totalMinute / (24 * 60);
+        if (day > 0) {
+            totalMinute -= (day * 24 * 60);
+            returnResult.append(day).append("天");
+        }
+        hour = totalMinute / 60;
+        if (hour > 0) {
+            totalMinute -= (hour * 60);
+            returnResult.append(hour).append("小时");
+        }
+        minute = totalMinute;
+        if (minute > 0) {
+            returnResult.append(minute).append("分钟");
+        }
+        return returnResult.toString();
+    }
+
+    public static void main(String[] args) {
+        List<Long> varList1 = new ArrayList<>();
+        varList1.add(1L);
+        List<String> varList2 = new ArrayList<>();
+        varList2.add("2");
+        boolean b = compareListIncludeAny(varList1, varList2);
+        System.out.println(b);
+    }
+
+    private static boolean compareListIncludeAny(List<?> varList1, List<?> varList2) {
+        Set<?> varSet1 = new HashSet<>(varList1);
+        Set<?> varSet2 = new HashSet<>(varList2);
+        for (Object var : varSet2) {
+            boolean contains = varSet1.contains(var);
+            if (contains) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

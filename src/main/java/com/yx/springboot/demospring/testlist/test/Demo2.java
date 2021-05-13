@@ -91,7 +91,9 @@ public class Demo2{
 
 
     public void test(){
-        File file = new File("");
-
+        String expression = "11111";
+        char a = expression.charAt(0);
+        System.out.println(a >= '0');
+        System.out.println(a >= 'r');
     }
 }
