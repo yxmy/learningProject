@@ -24,7 +24,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/18
  */
-public class RomanToInt {
+public class RomanToInt13 {
 
     /**
      * 将字符串的当前字母和下一个字母进行比较，如果当前字母小于下一个字母，则表示此时满足《计算减法》的条件，将这两个数字相减；

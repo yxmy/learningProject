@@ -17,7 +17,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/21
  */
-public class CountAndSay {
+public class CountAndSay38 {
 
     /**
      * 根据传递的值，先组装出一个集合，然后再获取

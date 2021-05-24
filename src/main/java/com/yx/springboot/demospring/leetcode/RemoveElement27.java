@@ -8,7 +8,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/21
  */
-public class RemoveElement {
+public class RemoveElement27 {
 
     /**
      * fast遍历，slow记录下一个不等于val的值存放的位置

@@ -7,7 +7,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/21
  */
-public class SearchInsert {
+public class SearchInsert35 {
 
     /**
      * 二分法

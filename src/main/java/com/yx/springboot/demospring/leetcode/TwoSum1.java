@@ -14,7 +14,7 @@ import java.util.Map;
  * @author yuanxin
  * @date 2021/5/18
  */
-public class TwoSum {
+public class TwoSum1 {
 
     /**
      * 参照后修改

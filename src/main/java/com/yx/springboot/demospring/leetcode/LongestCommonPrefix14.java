@@ -11,7 +11,7 @@ import java.util.List;
  * @author yuanxin
  * @date 2021/5/18
  */
-public class LongestCommonPrefix {
+public class LongestCommonPrefix14 {
 
     /**
      * 要所有的字符串都包含某一段开头，只需要判断最短的字符串就行了，因为如果最短的字符串都没包括，其他肯定也不会包括

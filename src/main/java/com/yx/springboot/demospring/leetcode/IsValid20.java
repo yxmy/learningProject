@@ -12,7 +12,7 @@ import java.util.Stack;
  * @author yuanxin
  * @date 2021/5/19
  */
-public class IsValid {
+public class IsValid20 {
 
     /**
      * 从左向右解析，如果遇到 ( [ { 则入栈，如果遇到 ) ] }，则从栈中取出top元素，查看是否和当前的匹配，

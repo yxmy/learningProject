@@ -9,7 +9,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/18
  */
-public class IsPalindrome {
+public class IsPalindrome9 {
 
     /**
      * 如果是负数，肯定不是

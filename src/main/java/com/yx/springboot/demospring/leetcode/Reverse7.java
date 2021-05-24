@@ -10,7 +10,7 @@ import java.util.Stack;
  * @author yuanxin
  * @date 2021/5/18
  */
-public class Reverse {
+public class Reverse7 {
 
     /**
      * 依靠栈先进后出反转

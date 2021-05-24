@@ -6,7 +6,7 @@ package com.yx.springboot.demospring.leetcode;
  * @author yuanxin
  * @date 2021/5/19
  */
-public class MergeTwoLists {
+public class MergeTwoLists21 {
 
     /**
      * 将长度较短的链表融入长度较长的链表（减少遍历次数）
