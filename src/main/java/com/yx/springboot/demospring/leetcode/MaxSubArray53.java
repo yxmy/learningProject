@@ -25,23 +25,35 @@ public class MaxSubArray53 {
         int maxNum = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
             int subMax = Integer.MIN_VALUE;
+            int currSum = Integer.MIN_VALUE;
             for (int j = i; j < nums.length; j++) {
-                if (subMax == Integer.MIN_VALUE) {
-                    subMax = nums[j];
+                if (currSum == Integer.MIN_VALUE) {
+                    currSum = nums[j];
+                } else {
+                    currSum += nums[j];
                 }
-                if ((subMax + nums[j]) > subMax) {
-                    subMax += nums[j];
+                if (currSum > subMax) {
+                    subMax = currSum;
                 }
             }
             if (subMax > maxNum) {
                 maxNum = subMax;
             }
         }
-        return 0;
+        return maxNum;
+    }
+
+    public int maxSubArray1(int[] nums) {
+        int pre = 0, maxAns = nums[0];
+        for (int x : nums) {
+            pre = Math.max(pre + x, x);
+            maxAns = Math.max(maxAns, pre);
+        }
+        return maxAns;
     }
 
     public static void main(String[] args) {
-        int [] nums = {-2,1,-3,4,-1,2,1,-5,4};
+        int [] nums = {1,-1};
         System.out.println(maxSubArray(nums));
     }
 
