@@ -165,9 +165,9 @@ public class DemoClass {
 
     @Test
     public void test9() {
-        String a = "";
-        String b = "sss";
-        System.out.println(b.contains(a));
+        String var1 = "123#332";
+        String prefix = "123#";
+        System.out.println(var1.substring(prefix.length()));
     }
 
     public static String convertMinuteTime(Integer totalMinute) {
