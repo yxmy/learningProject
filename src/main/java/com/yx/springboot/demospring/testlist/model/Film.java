@@ -29,6 +29,10 @@ public class Film{
 
     private static final long serialVersionUID = 3776498253149022877L;
 
+    @Id
+    @Column(name = "id", columnDefinition = "BIGINT COMMENT 'id'")
+    private Long id;
+
     /**
      * 影片编码
      */

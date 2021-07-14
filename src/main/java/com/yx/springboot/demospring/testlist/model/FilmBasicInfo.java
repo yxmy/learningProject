@@ -20,6 +20,10 @@ public class FilmBasicInfo{
 
     private static final long serialVersionUID = 4140367217635446997L;
 
+    @Id
+    @Column(name = "id", columnDefinition = "BIGINT COMMENT 'id'")
+    private Long id;
+
     /**
      * 发行类型
      */

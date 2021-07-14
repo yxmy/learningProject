@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
 /**
  * 影片摘要信息
@@ -21,6 +22,10 @@ import javax.persistence.Enumerated;
 public class FilmIntroductionInfo{
 
     private static final long serialVersionUID = 7245356092133086824L;
+
+    @Id
+    @Column(name = "id", columnDefinition = "BIGINT COMMENT 'id'")
+    private Long id;
 
     /**
      * 影片名称
