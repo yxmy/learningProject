@@ -1,0 +1,10 @@
+## range(起始，终止，递增大小)
+for i in range(0, 9, 2) {
+    if (i < 2) {
+        println(i + ' < 2');
+    } elsif (i < 5) {
+        println(i + ' < 5');
+    } else {
+        println(i + ' < 10');
+    }
+}

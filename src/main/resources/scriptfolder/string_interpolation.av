@@ -1,0 +1,5 @@
+let name = "aviator";
+let a = 1;
+let b = 2;
+let s = "Hello, #{name}, a is #{a}, b is #{b}, sum is #{a + b}";
+print(s);

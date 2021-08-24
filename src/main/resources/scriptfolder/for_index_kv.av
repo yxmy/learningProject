@@ -1,0 +1,28 @@
+let m = tuple(1,2,3);
+
+let n = seq.list(1,2,4);
+##编译器报错，执行没问题
+for i, x in m {
+##判断，类似与Java的 Assert
+  assert(i + 1 == x);
+  println("m[#{i}] = #{x}");
+}
+
+for i, x in n {
+  println("n[#{i}] = #{x}");
+}
+
+let m = seq.map("a", 1, "b", 2, "c", 3);
+
+for k, v in m {
+  println("#{k} = #{v}");
+  if k == "a" {
+    assert(v == 1);
+  }elsif k == 'b' {
+    assert(v == 2);
+  }elsif k == 'c' {
+    assert(v == 3);
+  }else {
+    throw "should not happen";
+  }
+}

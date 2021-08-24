@@ -1,0 +1,28 @@
+fn rectangle(x, y) {
+    let r = seq.map("x", x, "y", y);
+
+    r.area = lambda() ->
+        return r.x * r.y;
+    end;
+
+    r.circum = lambda() ->
+        return 2 * (r.x + r.y);
+    end;
+
+    return r;
+}
+
+let s1 = rectangle(1, 2);
+println("s1 info");
+println(s1.x);
+println(s1.y);
+println(s1.area());
+println(s1.circum());
+
+s1.x = 100;
+s1.y = 200;
+println("s1 info after setting:");
+println(s1.x);
+println(s1.y);
+println(s1.area());
+println(s1.circum());

@@ -1,99 +1,50 @@
 package com.yx.springboot.demospring.testlist.test;
 
-import org.apache.http.Consts;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
-public class Demo2{
+public class Demo2 {
 
     public List<String> list = new ArrayList<>();
 
-    public void set(){
-        for(int i = 0; i < 100; i++){
-            list.add("i" + i);
-            if (i == 50 ) {
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        get();
-                    }
-                });
-
-            }
-            System.out.println("set list size ：" + list.size());
-        }
-    }
-
-    public void get(){
-        ListIterator<String> stringListIterator = list.listIterator();
-        while (stringListIterator.hasNext()){
-            System.out.println(stringListIterator.next());
-            stringListIterator.remove();
-            System.out.println("get list size ：" + list.size());
-        }
-    }
-
     public static void main(String[] args) {
-//        String code = "001203752010";
-//        String type = code.substring(code.length() - 4);
-//        System.out.println(type);
-        try{
-            HttpResponse httpResponse;
-            try(CloseableHttpClient client = HttpClients.createDefault()) {
-                HttpPost post = new HttpPost("http://114.247.46.136/externalApi/movies/getMovies2.do");
-
-                List<NameValuePair> value = new LinkedList<NameValuePair>();
-                value.add(new BasicNameValuePair("startOffset", "0"));
-                value.add(new BasicNameValuePair("size", "50"));
-//                value.add(new BasicNameValuePair("movieType", ""));
-
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(value, Consts.UTF_8);
-                post.setEntity(entity);
-                post.setProtocolVersion(HttpVersion.HTTP_1_0);
-                httpResponse = client.execute(post);
-            }
-            if (200==httpResponse.getStatusLine().getStatusCode()) {
-                String result = EntityUtils.toString(httpResponse.getEntity());
-                System.out.println("返回json字符串为" +  result);
-//				if (StringUtils.isNotBlank(result)) {
-//					Map<String, Object> jsonMap = JsonUtils.jsonToMap(result.toString());
-//					Integer totalNum = (Integer)jsonMap.get("total");
-//					String newJson = result.substring(result.indexOf("["), result.lastIndexOf("]") + 1);
-//					List<Movies> list = JsonUtils.jsonToPojoList(newJson, new TypeReference<List<Movies>>(){});
-//					for(Movies movies : list){
-//						updateMovie(movies);
-//					}
-//					for(int i = list.size(); i < totalNum; i+=50){
-//						List<Movies> movies = sendPostRequest(i);
-//						for(Movies mo : movies){
-//							updateMovie(mo);
-//						}
-//					}
-//				}else{
-//					MoivesAPIController.log.info("影片请求返回结果为空或为null");
-//				}
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        System.out.println(Arrays.toString(args));
     }
 
 
-    public void test(){
+    public static void test1() {
+        double a = 1.0;
+        double b = 3.0;
+        double c = -4.0;
+        // 求平方根可用 Math.sqrt():
+        // System.out.println(Math.sqrt(2)); ==> 1.414
+        // TODO:
+        double r1 = 0;
+        double r2 = 0;
+        double sqrt = Math.sqrt(b * b - (4.0 * a * c));
+        r1 = (-b + sqrt) / 2.0 * a;
+        r2 = (-b - sqrt) / 2.0 * a;
+
+        System.out.println(r1);
+        System.out.println(r2);
+        System.out.println(r1 == 1 && r2 == -4 ? "测试通过" : "测试失败");
+    }
+
+    public static void test2() {
         String expression = "11111";
         char a = expression.charAt(0);
         System.out.println(a >= '0');
         System.out.println(a >= 'r');
     }
+
+    public static void test3() {
+        int[][] deepArray = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8}
+        };
+        System.out.println(Arrays.deepToString(deepArray));
+    }
+
 }
