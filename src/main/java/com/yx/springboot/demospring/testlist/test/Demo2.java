@@ -1,7 +1,7 @@
 package com.yx.springboot.demospring.testlist.test;
 
-import com.yx.springboot.demospring.enums.FilmPublishType;
 import com.yx.springboot.demospring.interfaces.Hello2;
+import com.yx.springboot.demospring.testlist.enums.FilmPublishType;
 import com.yx.springboot.demospring.testlist.model.User;
 
 import java.lang.reflect.Field;
@@ -91,7 +91,7 @@ public class Demo2 extends HashMap<String, Object> {
                 return null;
             }
         };
-        Hello2 hello = (Hello2) Proxy.newProxyInstance(Hello2.class.getClassLoader(), new Class[] {Hello2.class}, handler);
+        Hello2 hello = (Hello2) Proxy.newProxyInstance(Hello2.class.getClassLoader(), new Class[]{Hello2.class}, handler);
         hello.sayHello("袁鑫");
         hello.sayHello2("袁鑫");
     }
@@ -160,7 +160,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     public static void test11() {
         List<Integer> list = new ArrayList<>();
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             list.add(i);
         }
         System.out.println("洗牌前：" + list);
