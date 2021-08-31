@@ -10,10 +10,19 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Deque;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -22,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 public class Demo2 extends HashMap<String, Object> {
@@ -29,7 +39,7 @@ public class Demo2 extends HashMap<String, Object> {
     public List<String> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        test11();
+        test16();
     }
 
 
@@ -166,6 +176,65 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println("洗牌前：" + list);
         Collections.shuffle(list);
         System.out.println("洗牌后：" + list);
+    }
+
+    public static void test12() {
+        LocalDateTime dateTime1 = LocalDateTime.of(1994, 3, 26, 0, 0, 0);
+        LocalDateTime dateTime2 = LocalDateTime.of(1994, 2, 16, 3, 45, 35);
+
+        Duration duration = Duration.between(dateTime1, dateTime2);
+        System.out.println(duration);
+
+        Period until = LocalDate.now().until(LocalDate.of(1994, 3, 26));
+        System.out.println(until);
+
+    }
+
+    public static void test13() {
+        //默认时区
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        //指定时区
+        ZonedDateTime zonedDateTime1 = ZonedDateTime.now(ZoneId.of("America/New_York"));
+        System.out.println(zonedDateTime);
+        System.out.println(zonedDateTime1);
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime2 = dateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime3 = dateTime.atZone(ZoneId.of("America/New_York"));
+        System.out.println(zonedDateTime2);
+        System.out.println(zonedDateTime3);
+    }
+
+    public static void test14() {
+        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.systemDefault());
+        System.out.println(zdt);
+        ZonedDateTime zonedDateTime = zdt.withZoneSameInstant(ZoneId.of("America/New_York"));
+        System.out.println(zonedDateTime);
+
+        LocalDateTime dateTime = zdt.toLocalDateTime();
+        System.out.println(dateTime);
+    }
+
+    public static void test15() {
+        Instant instant = Instant.now();
+        System.out.println(instant.getEpochSecond());
+        System.out.println(instant.getNano());
+
+        Instant instant1 = Instant.ofEpochSecond(1568568760);
+        ZonedDateTime zdt = instant1.atZone(ZoneId.systemDefault());
+        System.out.println(zdt);
+    }
+
+    public static void test16() {
+        Instant ins = new Date().toInstant();
+        ZonedDateTime zonedDateTime = ins.atZone(ZoneId.systemDefault());
+
+        ZonedDateTime zdt = ZonedDateTime.now();
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTimeZone(TimeZone.getTimeZone(zdt.getZone().getId()));
+        calendar.setTimeInMillis(zdt.toEpochSecond() * 1000);
+        System.out.println(calendar.toString());
     }
 
 }
