@@ -10,13 +10,17 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -179,6 +183,59 @@ public class Demo2 extends HashMap<String, Object> {
     }
 
     public static void test12() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+        System.out.println(localDate);
+        System.out.println(localDateTime.toLocalDate());
+        System.out.println(localTime);
+        System.out.println(localDateTime.toLocalTime());
+        System.out.println(localDateTime);
+
+        final LocalDate of1 = LocalDate.of(2021, 9, 1);
+        System.out.println(of1);
+        final LocalTime of2 = LocalTime.of(12, 54); //如果分钟数大于59 或者小于0 报错
+        System.out.println(of2);
+        final LocalDateTime of3 = LocalDateTime.of(2022, 2, 3, 4, 3, 2);
+        System.out.println(of3);
+
+        LocalDateTime dt = LocalDateTime.parse("2019-11-19T15:16:17");
+        LocalDate d = LocalDate.parse("2019-11-19");
+        LocalTime t = LocalTime.parse("15:16:17");
+
+    }
+
+    public static void test13() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dtf.format(LocalDateTime.now()));
+
+        final LocalDateTime parse = LocalDateTime.parse("2021-01-01T09:00:00");
+        System.out.println(parse);
+
+        final LocalDateTime parse1 = LocalDateTime.parse("2021-01-01 09:00:00", dtf);
+        System.out.println(parse1);
+    }
+
+    public static void test14() {
+        LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime localDateTime = now.plusDays(4).minusHours(2);
+        System.out.println(localDateTime);
+
+        //调整日期，
+        final LocalDateTime localDateTime1 = now.withDayOfMonth(3).withHour(23).withSecond(23);
+        System.out.println(localDateTime1);
+
+        //下月第1天:
+        final LocalDateTime with1 = LocalDateTime.now().with(TemporalAdjusters.firstDayOfNextMonth());
+        System.out.println(with1);
+
+        //本月第一个周一
+        final LocalDateTime with = LocalDateTime.now().with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
+        System.out.println(with);
+
+    }
+
+    public static void test15() {
         LocalDateTime dateTime1 = LocalDateTime.of(1994, 3, 26, 0, 0, 0);
         LocalDateTime dateTime2 = LocalDateTime.of(1994, 2, 16, 3, 45, 35);
 
@@ -190,7 +247,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     }
 
-    public static void test13() {
+    public static void test16() {
         //默认时区
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         //指定时区
@@ -205,7 +262,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(zonedDateTime3);
     }
 
-    public static void test14() {
+    public static void test17() {
         ZonedDateTime zdt = ZonedDateTime.now(ZoneId.systemDefault());
         System.out.println(zdt);
         ZonedDateTime zonedDateTime = zdt.withZoneSameInstant(ZoneId.of("America/New_York"));
@@ -215,7 +272,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(dateTime);
     }
 
-    public static void test15() {
+    public static void test18() {
         Instant instant = Instant.now();
         System.out.println(instant.getEpochSecond());
         System.out.println(instant.getNano());
@@ -225,7 +282,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(zdt);
     }
 
-    public static void test16() {
+    public static void test19() {
         Instant ins = new Date().toInstant();
         ZonedDateTime zonedDateTime = ins.atZone(ZoneId.systemDefault());
 
