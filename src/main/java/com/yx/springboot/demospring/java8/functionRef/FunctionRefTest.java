@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author yuanxin
@@ -32,5 +33,19 @@ public class FunctionRefTest {
                 throw new RuntimeException(e);
             }
         };
+    }
+
+    @Test
+    public void test3() {
+
+        Predicate<String> containsA = (String string) -> {
+            return this.containsA(string);
+        };
+
+        Predicate<String> predicate1 = this::containsA;
+    }
+
+    public boolean containsA(String str) {
+        return str.contains("a");
     }
 }
