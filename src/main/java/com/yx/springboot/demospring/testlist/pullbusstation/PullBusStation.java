@@ -32,7 +32,7 @@ public class PullBusStation {
         List<String> list = new ArrayList<>();
         StringBuilder sb = null;
         HttpGet httpGet = new HttpGet(searchPage + index);
-        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+        httpGet.setHeader("UserEntity-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
         final HttpResponse httpResponse = httpClient.execute(httpGet);
         if(200 == httpResponse.getStatusLine().getStatusCode()){
             PullBusStation.log.info("信息返回成功。开始解析...");

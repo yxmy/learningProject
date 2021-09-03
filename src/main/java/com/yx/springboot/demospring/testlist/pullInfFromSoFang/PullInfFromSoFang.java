@@ -62,7 +62,7 @@ public class PullInfFromSoFang implements CommandLineRunner {
         List<HouseInfoBean> list = new ArrayList<>();
         StringBuilder sb = null;
         HttpGet httpGet = new HttpGet(searchPage + index);
-        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+        httpGet.setHeader("UserEntity-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
         final HttpResponse httpResponse = httpClient.execute(httpGet);
         if(200 == httpResponse.getStatusLine().getStatusCode()){
             PullInfFromSoFang.log.info("第" + index + "页房屋列表页信息返回成功。开始解析...");
@@ -89,7 +89,7 @@ public class PullInfFromSoFang implements CommandLineRunner {
     public void getHouseDetail(String url, HouseInfoBean bean) throws IOException, InterruptedException {
         StringBuilder sb = null;
         HttpGet httpGetInfo = new HttpGet(url);
-        httpGetInfo.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+        httpGetInfo.setHeader("UserEntity-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
         HttpResponse httpResponseHouseDetail = httpClient.execute(httpGetInfo);
         if(200 == httpResponseHouseDetail.getStatusLine().getStatusCode()){
             PullInfFromSoFang.log.info("房屋信息返回成功。开始解析...");
@@ -140,7 +140,7 @@ public class PullInfFromSoFang implements CommandLineRunner {
     public void getEstateInfo(String url, HouseInfoBean bean) throws IOException {
         StringBuilder sb = null;
         HttpGet httpGetInfo = new HttpGet(url);
-        httpGetInfo.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+        httpGetInfo.setHeader("UserEntity-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
         HttpResponse httpResponseHouseDetail = httpClient.execute(httpGetInfo);
         if(200 == httpResponseHouseDetail.getStatusLine().getStatusCode()) {
             PullInfFromSoFang.log.info("楼盘信息返回成功。开始解析...");

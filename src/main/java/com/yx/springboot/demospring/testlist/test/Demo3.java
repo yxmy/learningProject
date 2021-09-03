@@ -1,6 +1,6 @@
 package com.yx.springboot.demospring.testlist.test;
 
-import com.yx.springboot.demospring.testlist.mybatis.model.User;
+import com.yx.springboot.demospring.testlist.mybatis.model.UserEntity;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -181,11 +181,11 @@ public class Demo3 {
         for (int i = 0; i < 10; i++) {
             System.out.println(UUID.randomUUID());
         }
-        List<User> list = new ArrayList<>();
-        User user = new User();
-        user.setUserId("111");
-        list.add(user);
-        user.setUserId("@22");
+        List<UserEntity> list = new ArrayList<>();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId("111");
+        list.add(userEntity);
+        userEntity.setUserId("@22");
         System.out.println(list.toString());
     }
 
@@ -222,14 +222,14 @@ public class Demo3 {
 
     @Test
     public void test16() throws Exception {
-        User user = new User();
-        user.setUserId("111");
-        Method method = User.class.getMethod("getUserId");
-        String userId = (String) method.invoke(user);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId("111");
+        Method method = UserEntity.class.getMethod("getUserId");
+        String userId = (String) method.invoke(userEntity);
         System.out.println(userId);
-        Method setUsername = User.class.getMethod("setUsername", String.class);
-        setUsername.invoke(user, "小明");
-        System.out.println(user.getUsername());
+        Method setUsername = UserEntity.class.getMethod("setUsername", String.class);
+        setUsername.invoke(userEntity, "小明");
+        System.out.println(userEntity.getUsername());
     }
 
     @Test
