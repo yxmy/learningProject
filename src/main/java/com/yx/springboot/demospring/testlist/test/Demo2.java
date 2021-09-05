@@ -43,7 +43,7 @@ public class Demo2 extends HashMap<String, Object> {
     public List<String> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        test16();
+        test20();
     }
 
 
@@ -292,6 +292,27 @@ public class Demo2 extends HashMap<String, Object> {
         calendar.setTimeZone(TimeZone.getTimeZone(zdt.getZone().getId()));
         calendar.setTimeInMillis(zdt.toEpochSecond() * 1000);
         System.out.println(calendar.toString());
+    }
+
+    public static void test20() {
+        double b = Math.sqrt(100.0) % 1.0;
+        System.out.println(b);
+        double b1 = Math.sqrt(100.1) % 1;
+        System.out.println(b1);
+
+        double b2 = Math.sqrt(100.0) % 1.0;
+        System.out.println(b2);
+        double b3 = Math.sqrt(100.1) % 1.0;
+        System.out.println(b3);
+    }
+
+    public static void test21() {
+        Map<String, Object> map = new HashMap<>(16);
+        map.entrySet().stream().sorted(Entry.comparingByKey()).forEachOrdered(System.out::println);
+
+        map.getOrDefault("defaultKey", 100);
+        map.computeIfAbsent("ifAbsent", name -> new ArrayList<>().add(name));
+        map.computeIfPresent("ifPresent", (String name, Object user) -> user);
     }
 
 }
