@@ -1,8 +1,11 @@
 package com.yx.springboot.demospring.testlist.test;
 
+import com.yx.springboot.demospring.interfaces.Hello;
 import com.yx.springboot.demospring.interfaces.Hello2;
+import com.yx.springboot.demospring.interfaces.HelloImpl;
 import com.yx.springboot.demospring.testlist.enums.FilmPublishType;
 import com.yx.springboot.demospring.testlist.model.User;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -42,12 +45,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     public List<String> list = new ArrayList<>();
 
-    public static void main(String[] args) {
-        test20();
-    }
-
-
-    public static void test1() {
+    public void test1() {
         double a = 1.0;
         double b = 3.0;
         double c = -4.0;
@@ -65,14 +63,15 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(r1 == 1 && r2 == -4 ? "测试通过" : "测试失败");
     }
 
-    public static void test2() {
+    @Test
+    public void test2() {
         String expression = "11111";
         char a = expression.charAt(0);
         System.out.println(a >= '0');
         System.out.println(a >= 'r');
     }
 
-    public static void test3() {
+    public void test3() {
         int[][] deepArray = {
                 {1, 2, 3},
                 {4, 5, 6},
@@ -81,7 +80,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(Arrays.deepToString(deepArray));
     }
 
-    public static void test4() {
+    public void test4() {
         try {
             Class clazz = Class.forName("java.util.String");
             Field[] fields = clazz.getFields();
@@ -91,7 +90,8 @@ public class Demo2 extends HashMap<String, Object> {
         }
     }
 
-    public static void test5() {
+    @Test
+    public void test5() {
         InvocationHandler handler = new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) {
@@ -106,11 +106,13 @@ public class Demo2 extends HashMap<String, Object> {
             }
         };
         Hello2 hello = (Hello2) Proxy.newProxyInstance(Hello2.class.getClassLoader(), new Class[]{Hello2.class}, handler);
+        String add = hello.add();
+        System.out.println(add);
         hello.sayHello("袁鑫");
         hello.sayHello2("袁鑫");
     }
 
-    public static void test6() {
+    public void test6() {
         Class<Demo2> demo2Class = Demo2.class;
         Type type = demo2Class.getGenericSuperclass();
         if (type instanceof ParameterizedType) {
@@ -122,7 +124,7 @@ public class Demo2 extends HashMap<String, Object> {
         }
     }
 
-    public static void test7() {
+    public void test7() {
         List<String> list = new ArrayList<>();
         list.add("a");
         Object[] objects = list.toArray();
@@ -132,13 +134,13 @@ public class Demo2 extends HashMap<String, Object> {
         }
     }
 
-    public static void test8() {
+    public void test8() {
         Map<FilmPublishType, Object> map = new EnumMap<>(FilmPublishType.class);
         map.put(FilmPublishType.cooperation, 111);
         map.put(FilmPublishType.alone, 222);
     }
 
-    public static void test9() {
+    public void test9() {
         Map<User, Integer> map = new TreeMap<>((o1, o2) -> Integer.compare(o2.getAge(), o1.getAge()));
 
         Queue<User> queue = new PriorityQueue<>(new UserComparator());
@@ -162,7 +164,7 @@ public class Demo2 extends HashMap<String, Object> {
         }
     }
 
-    public static void test10() {
+    public void test10() {
         Deque<String> deque = new LinkedList<>();
         deque.offerLast("A");
         deque.offerLast("B");
@@ -172,7 +174,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(deque.pollFirst());
     }
 
-    public static void test11() {
+    public void test11() {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -182,7 +184,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println("洗牌后：" + list);
     }
 
-    public static void test12() {
+    public void test12() {
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate localDate = LocalDate.now();
         LocalTime localTime = LocalTime.now();
@@ -205,7 +207,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     }
 
-    public static void test13() {
+    public void test13() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         System.out.println(dtf.format(LocalDateTime.now()));
 
@@ -216,7 +218,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(parse1);
     }
 
-    public static void test14() {
+    public void test14() {
         LocalDateTime now = LocalDateTime.now();
         final LocalDateTime localDateTime = now.plusDays(4).minusHours(2);
         System.out.println(localDateTime);
@@ -235,7 +237,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     }
 
-    public static void test15() {
+    public void test15() {
         LocalDateTime dateTime1 = LocalDateTime.of(1994, 3, 26, 0, 0, 0);
         LocalDateTime dateTime2 = LocalDateTime.of(1994, 2, 16, 3, 45, 35);
 
@@ -247,7 +249,7 @@ public class Demo2 extends HashMap<String, Object> {
 
     }
 
-    public static void test16() {
+    public void test16() {
         //默认时区
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         //指定时区
@@ -262,7 +264,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(zonedDateTime3);
     }
 
-    public static void test17() {
+    public void test17() {
         ZonedDateTime zdt = ZonedDateTime.now(ZoneId.systemDefault());
         System.out.println(zdt);
         ZonedDateTime zonedDateTime = zdt.withZoneSameInstant(ZoneId.of("America/New_York"));
@@ -272,7 +274,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(dateTime);
     }
 
-    public static void test18() {
+    public void test18() {
         Instant instant = Instant.now();
         System.out.println(instant.getEpochSecond());
         System.out.println(instant.getNano());
@@ -282,7 +284,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(zdt);
     }
 
-    public static void test19() {
+    public void test19() {
         Instant ins = new Date().toInstant();
         ZonedDateTime zonedDateTime = ins.atZone(ZoneId.systemDefault());
 
@@ -294,7 +296,7 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(calendar.toString());
     }
 
-    public static void test20() {
+    public void test20() {
         double b = Math.sqrt(100.0) % 1.0;
         System.out.println(b);
         double b1 = Math.sqrt(100.1) % 1;
@@ -306,13 +308,20 @@ public class Demo2 extends HashMap<String, Object> {
         System.out.println(b3);
     }
 
-    public static void test21() {
+    public void test21() {
         Map<String, Object> map = new HashMap<>(16);
         map.entrySet().stream().sorted(Entry.comparingByKey()).forEachOrdered(System.out::println);
 
         map.getOrDefault("defaultKey", 100);
         map.computeIfAbsent("ifAbsent", name -> new ArrayList<>().add(name));
         map.computeIfPresent("ifPresent", (String name, Object user) -> user);
+    }
+
+    @Test
+    public void test22() {
+        Hello hello = new HelloImpl();
+        System.out.println(hello.add());
+        hello.sayHello("aaa");
     }
 
 }
