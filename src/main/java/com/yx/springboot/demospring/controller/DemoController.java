@@ -2,8 +2,8 @@ package com.yx.springboot.demospring.controller;
 
 import com.yx.springboot.demospring.annotation.ProcessLock;
 import com.yx.springboot.demospring.service.BaseEntityService;
-import com.yx.springboot.demospring.testlist.model.Person;
-import com.yx.springboot.demospring.testlist.service.AbstractBaseService;
+import com.yx.springboot.demospring.model.Person;
+import com.yx.springboot.demospring.service.AbstractBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
