@@ -1,6 +1,6 @@
 package com.yx.springboot.demospring.dao;
 
-import com.yx.springboot.demospring.BaseEntity;
+import com.yx.springboot.demospring.model.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
