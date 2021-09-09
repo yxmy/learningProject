@@ -1,16 +1,12 @@
 package com.yx.springboot.demospring.learning.fork_join;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * 如果有返回值，叫任务
