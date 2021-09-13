@@ -4,9 +4,9 @@ spring:
   datasource:
     #连接MySQL
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.40.148.159:3306/learning_db?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://121.40.148.159:3306/v8_local_bpm?useSSL=false&allowPublicKeyRetrieval=true
     username: yuanxin
-    password: root_123456
+    password: Root_123456...
   jpa:
     hibernate:
       ddl-auto: update

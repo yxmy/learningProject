@@ -1,6 +1,7 @@
 package com.yx.springboot.demospring.controller;
 
 import com.yx.springboot.demospring.annotation.ProcessLock;
+import com.yx.springboot.demospring.model.User;
 import com.yx.springboot.demospring.service.BaseEntityService;
 import com.yx.springboot.demospring.model.Person;
 import com.yx.springboot.demospring.service.AbstractBaseService;
@@ -21,8 +22,8 @@ import java.util.List;
 @RestController
 public class DemoController {
 
-    @Autowired
-    private BaseEntityService baseEntityService;
+//    @Autowired
+//    private BaseEntityService baseEntityService;
 
     @Resource(name = "serviceA")
     private AbstractBaseService serviceA;
@@ -56,11 +57,18 @@ public class DemoController {
 
     @GetMapping("/method1")
     public void method1() throws InterruptedException {
-        baseEntityService.method1();
+        User user = new User();
+        BaseEntityService entityService = new BaseEntityService(user);
+        entityService.method1();
+        Thread.sleep(10000);
+        System.out.println("method1 is " + user.getName());
     }
 
     @GetMapping("/method2")
     public void method2() throws InterruptedException {
-        baseEntityService.method2();
+        User user = new User();
+        BaseEntityService entityService = new BaseEntityService(user);
+        entityService.method2();
+        System.out.println("method2 is " + user.getName());
     }
 }

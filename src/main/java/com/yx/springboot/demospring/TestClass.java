@@ -1,7 +1,11 @@
 package com.yx.springboot.demospring;
 
-import java.util.HashMap;
+public class TestClass {
 
-public class TestClass extends HashMap<String, Object> {
+    public static void main(String[] args) {
+        String a1 = "hap";
+        String a2 = "happy";
+        System.out.println();
+    }
 
 }
