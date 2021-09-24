@@ -13,7 +13,8 @@ public class MainTest {
         System.out.println("排序前：" + Arrays.toString(arr));
 //        SortInterface sort = new BubbleSort();
 //        SortInterface sort = new SelectSort();
-        SortInterface sort = new InsertSort();
+//        SortInterface sort = new InsertSort();
+        SortInterface sort = new ShellSort();
         sort.sort(arr);
         System.out.println("排序后：" + Arrays.toString(arr));
     }
