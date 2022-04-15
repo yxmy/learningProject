@@ -1,23 +1,14 @@
 package com.yx.mygroup;
 
-import com.sun.nio.zipfs.ZipInfo;
+import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-import java.util.concurrent.locks.ReentrantLock;
-
+@Slf4j
 public class TestClass {
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(ReentrantLock.class.getClassLoader());
-        System.out.println(ZipInfo.class.getClassLoader());
-        System.out.println(TestClass.class.getClassLoader());
-
-        // AppClassLoader
-        System.out.println(ClassLoader.getSystemClassLoader());
-        // ExtClassLoader
-        System.out.println(ClassLoader.getSystemClassLoader().getParent());
-        // BootstrapClassLoader
-        System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());
-
+    public static void main(String[] args) {
+        StringBuilder stringBuilder = new StringBuilder("aaa");
+        stringBuilder.insert(0, "first ");
+        System.out.println(stringBuilder);
     }
+
 }
